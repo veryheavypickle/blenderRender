@@ -25,7 +25,7 @@ main () {
 blenderRender () {
 	local filePath=$1
 	local fileBaseName=$(basename -- "${filePath%.*}")
-	blender -b $file -x 1 -o $outDir/$fileBaseName_ -a
+	blender -b $file -x 1 -o $outDir/$fileBaseName_#### -a
 }
 
 main
