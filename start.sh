@@ -16,7 +16,7 @@ main () {
 	find $currentDir -name "*.blend1" -delete
 
 	# get blender files
-	local files=($(find $blendDir -name "*.blend" -maxdepth 1))
+	local files=($(find $blendDir -maxdepth 1 -name "*.blend"))
 	for file in "${files[@]}"; do
    		blenderRender $file
 	done
