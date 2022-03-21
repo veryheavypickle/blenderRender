@@ -21,7 +21,8 @@ main () {
 blenderRecursive() {
 	# get blender files
 	local files=($(find $blendDir -maxdepth 1 -name "*.blend"))
-	if [ ${#files[@]} > 0 ]; then
+	# if length of files is greater than 0
+	if [ ${#files[@]} -gt 0 ]; then
 		blenderRender ${files[0]}
 		blenderRecursive
 	fi
@@ -30,7 +31,7 @@ blenderRecursive() {
 blenderRender () {
 	local filePath=$1
 	local fileOutName=$outDir$(basename -- "${filePath%.*}_####")
-	#blender -b $file -x 1 -o $fileOutName -a
+	blender -b $file -x 1 -o $fileOutName -a
 	rm $filePath
 }
 
