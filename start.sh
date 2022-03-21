@@ -15,24 +15,17 @@ main () {
 	# clean
 	find $currentDir -name "*.blend1" -delete
 
-	blenderRender
+	# get blender files
+	local files=($(find $blendDir -maxdepth 1 -name "*.blend"))
+	for file in "${files[@]}"; do
+   		blenderRender $file
+	done
 }
 
 blenderRender () {
-	# get first blender file
-	local files=($(find $blendDir -maxdepth 1 -name "*.blend"))
-	local currentFile=${files[0]}
-
-	# get the base file name
-   	local fileOutName=$outDir$(basename -- "${currentFile%.*}_####")
-   	#blender -b $file -x 1 -o $fileOutName -a
-   	echo "Lol $fileOutName"
-   	rm $currentFile
-
-	# If there are still files, then restart
-	if [ ${#files} != "0" ]; then
-		blenderRender
-	fi
+	local filePath=$1
+	local fileOutName=$outDir$(basename -- "${filePath%.*}_####")
+	blender -b $file -x 1 -o $fileOutName -a
 }
 
 main
