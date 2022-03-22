@@ -2,7 +2,7 @@
 
 currentDir=$(pwd)
 outDir=$currentDir/output/
-blendDir=$currentDir/blender/
+blendDir=$currentDir/input/
 
 main () {
 	if ! [ -d "$outDir" ]; then
