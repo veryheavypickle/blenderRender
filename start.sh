@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 currentDir=$(pwd)
 outDir=$currentDir/output/
 blendDir=$currentDir/input/
@@ -30,9 +31,19 @@ blenderRecursive() {
 
 blenderRender () {
 	local filePath=$1
-	local fileOutName=$outDir$(basename -- "${filePath%.*}_####")
+	local projName=$(basename -- "${filePath%.*}")
+	local fileOutDir=$outDir$projName
+	local fileOutName=$fileOutDir/$projName"_######"
 	blender -b $filePath -x 1 -o $fileOutName -a
-	rm $filePath
+
+	# CD scares me a bit, only doing it because zip doesm't like absolute paths
+	cd $fileOutDir
+	# Go to the parent folder of output dir
+	cd ..
+	zip -rm $projName $projName
+	cd $currentDir
+	echo "$fileOutDir"
+	#rm $filePath
 }
 
 main
